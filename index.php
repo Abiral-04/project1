@@ -1,3 +1,4 @@
+<?php require"db_Connect.php"?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,8 +21,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <!-- Libraries Stylesheet
+    <link href="lib/animate/animate.min.css" rel="stylesheet"> -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
@@ -31,7 +32,57 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
+
 <body>
+    <?php
+// Initialize variables
+$showForm = true;
+$message = "";
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $name = $_POST['gname'];
+    $email = $_POST['gmail'];
+    $mobile = $_POST['cnum'];
+    $address = $_POST['CAddress'];
+    $serviceType = $_POST['cage'];
+    $userMessage = $_POST['message'];
+
+    // Validate form data
+    if (!empty($name) && !empty($email) && !empty($mobile) && !empty($address) && !empty($serviceType) && !empty($userMessage)) {
+  
+$customer_name = $_POST['gname'];
+$customer_email = $_POST['gmail'];
+$mobile = $_POST['cnum'];
+$address = $_POST['CAddress'];
+$service_type = $_POST['cage'];
+$message = $_POST['message'];
+
+$sql = "INSERT INTO bookings (customer_name, customer_email, mobile, address, service_type, message) 
+        VALUES (?, ?, ?, ?, ?, ?)";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ssssss", $customer_name, $customer_email, $mobile, $address, $service_type, $message);
+$txt="";
+if ($stmt->execute()) {
+    // $txt = "New record created successfully";
+
+    // echo "<script>alert('$txt');</script>";
+} else {
+    $txt = "Error: " . $sql . "<br>" . $conn->error;
+    echo "<script>alert('$txt');</script>";
+}
+
+$stmt->close();
+$conn->close();
+
+        // Display confirmation message
+        $showForm = false;
+        $message = "You have booked your service. We will get back to you shortly.";
+    }
+}
+?>
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" role="status"></div>
@@ -379,41 +430,82 @@
                 </div>
                 <div class="col-lg-6 quote-form" data-parallax="scroll" data-image-src="img/carousel-2.jpg">
                     <div class="h-100 px-4 px-sm-5 pe-lg-0 wow fadeIn" data-wow-delay="0.5s">
-                        <div class="bg-white p-4 p-sm-5">
-                            <div class="row g-3">
-                                <div class="col-sm-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="gname" placeholder="Gurdian Name">
-                                        <label for="gname">Your Name</label>
+                        <div id="formContainer" <?php if (!$showForm) echo 'style="display: none;"'; ?>>
+                            <form action="" method="post" class="needs-validation" novalidate>
+                                <div class="bg-white p-4 p-sm-5">
+                                    <div class="row g-3">
+                                        <div class="col-sm-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="gname" name="gname" placeholder="Customer Name" required>
+                                                <label for="gname">Your Name</label>
+                                                <div class="invalid-feedback">
+                                                    Please provide your name.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="gmail" name="gmail" placeholder="Customer Email" required>
+                                                <label for="gmail">Your Email</label>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid email address.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="cnum" name="cnum" placeholder="Your Mobile" required pattern="[0-9]+" title="Please enter only numeric digits" minlength="10" maxlength="15">
+                                                <label for="cnum">Your Mobile</label>
+                                                <div class="invalid-feedback">
+                                                    Please provide your mobile number (10 digits).
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="CAddress" name="CAddress" placeholder="Your Address" required>
+                                                <label for="CAddress">Your Address</label>
+                                                <div class="invalid-feedback">
+                                                    Please provide your address.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-floating">
+                                            <select class="form-select" id="cage" name="cage" aria-label="Service Type" required>
+                                                    <option value="" selected disabled>Select Service Type</option>
+                                                    <option value="Service 1">Service 1</option>
+                                                    <option value="Service 2">Service 2</option>
+                                                    <option value="Service 3">Service 3</option>
+                                                    <option value="Service 4">Service 4</option>
+                                                </select>
+                                                <label for="cage">Service Type</label>
+                                                <div class="invalid-feedback">
+                                                    Please select a service type.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <textarea class="form-control" placeholder="Leave a message here" id="message" name="message" style="height: 80px" required></textarea>
+                                                <label for="message">Message</label>
+                                                <div class="invalid-feedback">
+                                                    Please leave a message.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="status" value="New">
+                                        <div class="col-12">
+                                            <button class="btn btn-primary py-3 px-5" type="submit">Book Now!</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control" id="gmail" placeholder="Gurdian Email">
-                                        <label for="gmail">Your Email</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="cname" placeholder="Child Name">
-                                        <label for="cname">Your Mobile</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="cage" placeholder="Child Age">
-                                        <label for="cage">Service Type</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 80px"></textarea>
-                                        <label for="message">Message</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary py-3 px-5" type="submit">Get A Free Quote</button>
-                                </div>
+                            </form>
+                        </div>
+                        <div id="confirmationContainer" <?php if ($showForm) echo 'style="display: none;"'; ?>>
+                            <div class="bg-white p-4 p-sm-5 text-center">
+                                <p class="lead"><?php echo $message; ?></p>
+                                <button class="btn btn-primary py-3 px-5" onclick="showForm()">Book Another Service</button>
                             </div>
                         </div>
                     </div>
@@ -630,6 +722,33 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+    
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+    
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+    
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    
+        function showForm() {
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('confirmationContainer').style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>

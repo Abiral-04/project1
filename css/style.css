@@ -1,4 +1,77 @@
 /********** Template CSS **********/
+.bg-white {
+    background-color: #fff;
+    padding: 1rem; /* Adjust padding as needed */
+    border-radius: 20px; /* Adjust border radius as needed */
+  }
+  
+  .form-floating {
+    margin-bottom: 1rem; /* Adjust margin as needed */
+  }
+  
+  .form-floating label {
+    color: #6c757d; /* Adjust label color as needed */
+  }
+  
+  .form-floating input[type="text"],
+  .form-floating input[type="email"],
+  .form-floating select,
+  .form-floating textarea {
+    background-color: #f8f9fa; /* Adjust input background color as needed */
+    color: #495057; /* Adjust input text color as needed */
+    border-radius: 10px; /* Adjust input border radius as needed */
+  }
+  
+  .form-floating textarea {
+    min-height: 80px; /* Adjust minimum height for textarea as needed */
+  }
+  .form-control:focus {
+    outline: none;
+}
+
+/* Custom focus styling */
+.form-control:focus {
+    border-color: #007bff; /* Change to desired color */
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Change to desired shadow */
+}
+.form-Select:focus {
+    outline: none;
+}
+
+/* Custom focus styling */
+.form-select:focus {
+    border-color: #007bff; /* Change to desired color */
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Change to desired shadow */
+}
+
+  .btn-primary {
+    background-color: #007bff; /* Adjust button background color as needed */
+    color: #fff; /* Adjust button text color as needed */
+    border: none; /* Remove button border */
+    border-radius: 10px; /* Adjust button border radius as needed */
+    padding: 0.5rem 1rem; /* Adjust button padding as needed */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Adjust button background color on hover as needed */
+  }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+th {
+    background-color: #f8f9fa;
+}
+/* Flexbox utility */
+.btn-container {
+    display: flex;
+    align-items: center;
+}
 :root {
     --primary: #FF800F;
     --secondary: #001064;
