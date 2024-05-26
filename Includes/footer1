@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+   <meta charset="utf-8">
+   <title>BBC footer</title>
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+   <footer>
+      <div class="main-content">
+         <div class="left box">
+            <h2>BBC.Maintainance</h2>
+            <div class="content">
+               <p>Al Bahja Building Maintenance and cleaning services do regular cleaning jobs, upholstery cleaning,
+                  after party cleaning, deep cleaning, and move-in move-out cleaning.</p>
+               <div class="social">
+                  <a href="#"><span class="fab fa-facebook-f"></span></a>
+                  <a href="#"><span class="fab fa-twitter"></span></a>
+                  <a href="#"><span class="fab fa-instagram"></span></a>
+                  <a href="#"><span class="fab fa-youtube"></span></a>
+               </div>
+            </div>
+         </div>
+
+         <div class="center box">
+            <h2>Details</h2>
+            <div class="content">
+               <div class="place">
+                  <span class="fas fa-map-marker-alt"></span>
+                  <span class="text">Amwaj Building , Burdubai, Office No. <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                     &nbsp; &nbsp;G19, P.O Box: 46777</span>
+               </div>
+               <div class="phone">
+                  <span class="fas fa-phone-alt"></span>
+                  <span class="text">+971 (04) 357 2148
+                  </span>
+               </div>
+               <div class="email">
+                  <span class="fas fa-envelope"></span>
+                  <span class="text">
+                     info@bbcmaintenance.com
+                  </span>
+               </div>
+            </div>
+         </div>
+
+         <div class="service">
+            <h3>Services</h3>
+            <br>
+            <ul class="service-list">
+                <li><a href="#">AC Installations</a></li>
+                <li><a href="#">AC Maintenance</a></li>
+                <li><a href="#">AC Repair</a></li>
+                <li><a href="#">AC Duct Cleaning</a></li>
+            </ul>
+        </div>
+        
+   </footer>
+</body>
+
+</html>
